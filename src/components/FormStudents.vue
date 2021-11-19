@@ -39,6 +39,7 @@ export default {
   data() {
     return {
       student: {
+        studentId:0,
         name: "",
         lastName: "",
         phone: "",

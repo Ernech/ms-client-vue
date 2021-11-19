@@ -11,10 +11,11 @@ export default {
     Navbar
   },
   methods:{
-    ...mapActions(['loadStudents'])
+    ...mapActions(['loadStudents','loadTeachers'])
   },
   created(){
     this.loadStudents()
+    this.loadTeachers()
   }
   
 }

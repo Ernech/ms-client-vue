@@ -22,10 +22,13 @@ export default createStore({
       state.students.push( payload)
     },
     setNewTeacher(state,payload){
-        state.teacher = payload
+        state.teachers.push(payload)
     },
     setStudents(state,payload){
       state.students=payload
+    },
+    setTeachers(state,payload){
+      state.teachers = payload;
     }
   },
   actions: {
@@ -37,10 +40,9 @@ async createTeacher({commit},teacher){
         body: JSON.stringify(teacher)
       })
       console.log(res.status)
-      console.log(res)
-      // const dataDB = await res.json();
-      // console.log(dataDB);
-      commit("setNewTeacher",teacher)
+       const dataDB = await res.json();
+       console.log(dataDB);
+      commit("setNewTeacher",dataDB)
     } catch (error) {
       console.log("Error: "+error)
     }
@@ -71,6 +73,15 @@ async createTeacher({commit},teacher){
         arrayStudents.push(dataDB[i])
       }
       commit('setStudents',arrayStudents)
+    },
+    async loadTeachers({commit}){
+      const res = await fetch('http://localhost:8080/ms-teacher/v1/api/teacher/all');
+      const dataDB = await res.json();
+      const arrayTeachers = [];
+      for(let i=0;i<dataDB.length;i++){
+        arrayTeachers.push(dataDB[i])
+      }
+      commit('setTeachers',arrayTeachers)
     }
   },
   modules: {
